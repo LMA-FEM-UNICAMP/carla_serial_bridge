@@ -42,7 +42,7 @@ using std::placeholders::_1;
 class CarlaSerialBridge : public rclcpp::Node{
     public:
 
-    CarlaSerialBridge() : Node("carla_serial_brigde"){
+    CarlaSerialBridge() : Node("microautoware/carla_serial_brigde"){
 
         vehicle_control_pub_ = this->create_publisher<ackermann_msgs::msg::AckermannDrive>("/carla/ego_vehicle/ackermann_cmd", 1);
 
