@@ -7,8 +7,8 @@
 #include "rclcpp/rclcpp.hpp"
 
 #include "carla_msgs/msg/carla_ego_vehicle_control.hpp"
-#include "autoware_vehicle_msgs/msg/velocity_report.hpp"
-#include "autoware_vehicle_msgs/msg/steering_report.hpp"
+#include <autoware_auto_vehicle_msgs/msg/steering_report.hpp>
+#include <autoware_auto_vehicle_msgs/msg/velocity_report.hpp>
 #include "ackermann_msgs/msg/ackermann_drive.hpp"
 #include "rosgraph_msgs/msg/clock.hpp"
 
@@ -48,10 +48,10 @@ class CarlaSerialBridge : public rclcpp::Node{
 
         vehicle_manual_control_pub_ = this->create_publisher<carla_msgs::msg::CarlaEgoVehicleControl>("/carla/ego_vehicle/vehicle_control_cmd", 1); // This 10 is QoS?
 
-        velocity_status_sub_ = this->create_subscription<autoware_vehicle_msgs::msg::VelocityReport>("/microautoware/vehicle/status/velocity_status", 
+        velocity_status_sub_ = this->create_subscription<autoware_auto_vehicle_msgs::msg::VelocityReport>("/microautoware/vehicle/status/velocity_status", 
                                                                                                 1, std::bind(&CarlaSerialBridge::velocity_status_sub_callback, this, _1));
 
-        steering_status_sub_ = this->create_subscription<autoware_vehicle_msgs::msg::SteeringReport>("/microautoware/vehicle/status/steering_status", 
+        steering_status_sub_ = this->create_subscription<autoware_auto_vehicle_msgs::msg::SteeringReport>("/microautoware/vehicle/status/steering_status", 
                                                                                                 1, std::bind(&CarlaSerialBridge::steering_status_sub_callback, this, _1));
 
         clock_sub_ = this->create_subscription<rosgraph_msgs::msg::Clock>("/clock", 1, std::bind(&CarlaSerialBridge::clock_sub_callback, this, _1));
@@ -118,7 +118,7 @@ class CarlaSerialBridge : public rclcpp::Node{
         clock = msg->clock;
     }
 
-    void steering_status_sub_callback(const autoware_vehicle_msgs::msg::SteeringReport::SharedPtr msg) {
+    void steering_status_sub_callback(const autoware_auto_vehicle_msgs::msg::SteeringReport::SharedPtr msg) {
         vehicle_status_tx.fSteeringStatus.f = msg->steering_tire_angle;
 
         bSteeringData = 1;
@@ -128,7 +128,7 @@ class CarlaSerialBridge : public rclcpp::Node{
         }
     }
 
-    void velocity_status_sub_callback(const autoware_vehicle_msgs::msg::VelocityReport::SharedPtr msg) {
+    void velocity_status_sub_callback(const autoware_auto_vehicle_msgs::msg::VelocityReport::SharedPtr msg) {
         vehicle_status_tx.fHeadingRate.f = msg->heading_rate;
         vehicle_status_tx.fLongSpeed.f = msg->longitudinal_velocity;
         vehicle_status_tx.fLatSpeed.f = msg->lateral_velocity;
@@ -323,9 +323,9 @@ class CarlaSerialBridge : public rclcpp::Node{
 
     rclcpp::Subscription<rosgraph_msgs::msg::Clock>::SharedPtr clock_sub_;
 
-    rclcpp::Subscription<autoware_vehicle_msgs::msg::VelocityReport>::SharedPtr velocity_status_sub_;
+    rclcpp::Subscription<autoware_auto_vehicle_msgs::msg::VelocityReport>::SharedPtr velocity_status_sub_;
 
-    rclcpp::Subscription<autoware_vehicle_msgs::msg::SteeringReport>::SharedPtr steering_status_sub_;
+    rclcpp::Subscription<autoware_auto_vehicle_msgs::msg::SteeringReport>::SharedPtr steering_status_sub_;
 
     __uint32_t loop_rate;
     __uint32_t baudrate;

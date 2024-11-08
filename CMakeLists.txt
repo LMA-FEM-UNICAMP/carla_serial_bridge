@@ -15,7 +15,7 @@ find_package(carla_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(ackermann_msgs REQUIRED)
-find_package(autoware_vehicle_msgs REQUIRED)
+find_package(autoware_auto_vehicle_msgs REQUIRED)
 find_package(autoware_control_msgs REQUIRED)
 find_package(rosgraph_msgs REQUIRED)
 
@@ -36,7 +36,7 @@ ament_target_dependencies(
   "nav_msgs"
   "carla_msgs"
   "ackermann_msgs"
-  "autoware_vehicle_msgs"
+  "autoware_auto_vehicle_msgs"
   "autoware_control_msgs"
   "rosgraph_msgs"
 )
