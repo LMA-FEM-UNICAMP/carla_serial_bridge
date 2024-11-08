@@ -142,13 +142,6 @@ class CarlaSerialBridge : public rclcpp::Node{
 
     void timer_callback(){
 
-        vehicle_status_tx.fHeadingRate.f = xSteeringAngle_Control.f;
-        vehicle_status_tx.fLatSpeed.f = xAcceleration_Control.f;
-        vehicle_status_tx.fLongSpeed.f = xSpeed_Control.f;
-        vehicle_status_tx.fSteeringStatus.f = xSteeringAngle_Control.f;
-
-        send_to_microautoware();
-
         char sm_state = 0;
         
         char * rx_msg; 
