@@ -202,7 +202,7 @@ class CarlaSerialBridge : public rclcpp::Node{
                 
                 case 20:
                     ucControlMode = rx_msg[i];
-                    sm_state = 31;                 
+                    sm_state = 1;                 
                     break;     
                 
                 case 30:
