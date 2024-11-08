@@ -70,7 +70,7 @@ char * SerialCom::readSerialPort(){
 }
 
 void SerialCom::writeSerialPort(char * tx_msg){
-    bool write_status = write(fd, tx_msg, strlen(tx_msg));
+    bool write_status = write(fd, tx_msg, 22);
 
     if(!write_status){
         std::cout << "5 Error writing in serial port: " << strerror(errno) << std::endl;

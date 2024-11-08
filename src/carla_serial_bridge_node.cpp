@@ -67,13 +67,13 @@ class CarlaSerialBridge : public rclcpp::Node{
 
     void send_to_microautoware(){
 
-        char tx_msg[100];
+        char tx_msg[23];
         sprintf(tx_msg, "#A%c%c%c%cB%c%c%c%cC%c%c%c%cD%c%c%c%c$",
                 vehicle_status_tx.fLongSpeed.bytes[0], vehicle_status_tx.fLongSpeed.bytes[1], vehicle_status_tx.fLongSpeed.bytes[2], vehicle_status_tx.fLongSpeed.bytes[3], 
                 vehicle_status_tx.fLatSpeed.bytes[0], vehicle_status_tx.fLatSpeed.bytes[1], vehicle_status_tx.fLatSpeed.bytes[2], vehicle_status_tx.fLatSpeed.bytes[3],
                 vehicle_status_tx.fHeadingRate.bytes[0], vehicle_status_tx.fHeadingRate.bytes[1], vehicle_status_tx.fHeadingRate.bytes[2], vehicle_status_tx.fHeadingRate.bytes[3],
                 vehicle_status_tx.fSteeringStatus.bytes[0], vehicle_status_tx.fSteeringStatus.bytes[1], vehicle_status_tx.fSteeringStatus.bytes[2], vehicle_status_tx.fSteeringStatus.bytes[3]);
-
+        
         serial_com_link.writeSerialPort(tx_msg); 
 
         bVelocityData = 0;
@@ -141,6 +141,14 @@ class CarlaSerialBridge : public rclcpp::Node{
     }
 
     void timer_callback(){
+
+        vehicle_status_tx.fHeadingRate.f = xSteeringAngle_Control.f;
+        vehicle_status_tx.fLatSpeed.f = xAcceleration_Control.f;
+        vehicle_status_tx.fLongSpeed.f = xSpeed_Control.f;
+        vehicle_status_tx.fSteeringStatus.f = xSteeringAngle_Control.f;
+
+        send_to_microautoware();
+
         char sm_state = 0;
         
         char * rx_msg; 
