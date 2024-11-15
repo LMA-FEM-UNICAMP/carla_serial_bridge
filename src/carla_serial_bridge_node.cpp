@@ -21,7 +21,7 @@
 
 #define PORT "/dev/ttyUSB0"
 #define BAUDRATE B921600
-#define RX_POOLING_RATE 50ms
+#define RX_POOLING_RATE 20ms
 
 typedef union{
   float f;
