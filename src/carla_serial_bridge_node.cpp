@@ -21,7 +21,7 @@
 
 #define PORT "/dev/ttyUSB0"
 #define BAUDRATE B921600
-#define RX_POOLING_RATE 20ms
+#define RX_POOLING_PERIOD 20ms
 
 typedef union{
   float f;
@@ -56,7 +56,7 @@ class CarlaSerialBridge : public rclcpp::Node{
 
         clock_sub_ = this->create_subscription<rosgraph_msgs::msg::Clock>("/clock", 1, std::bind(&CarlaSerialBridge::clock_sub_callback, this, _1));
 
-        timer_ = this->create_wall_timer(RX_POOLING_RATE, std::bind(&CarlaSerialBridge::timer_callback, this));
+        timer_ = this->create_wall_timer(RX_POOLING_PERIOD, std::bind(&CarlaSerialBridge::timer_callback, this));
 
         bVelocityData = 0;
         bSteeringData = 0;
