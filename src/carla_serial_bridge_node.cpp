@@ -21,7 +21,7 @@
 
 #define PORT "/dev/ttyUSB0"
 #define BAUDRATE B921600
-#define RX_POOLING_PERIOD 50ms
+#define RX_POOLING_PERIOD 20ms
 
 typedef union{
   float f;
@@ -148,7 +148,7 @@ class CarlaSerialBridge : public rclcpp::Node{
         
         rx_msg = serial_com_link.readSerialPort();
 
-        for(int i = 0; i < 64; i++){
+        for(int i = 0; i < 30; i++){
             
             switch (sm_state){
 
