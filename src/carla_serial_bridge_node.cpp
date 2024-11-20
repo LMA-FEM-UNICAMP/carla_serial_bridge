@@ -23,6 +23,8 @@
 #define BAUDRATE B921600
 #define RX_POOLING_PERIOD 20ms
 
+#define MSG_SIZE 30
+
 typedef union{
   float f;
   unsigned char bytes[4];
@@ -148,7 +150,7 @@ class CarlaSerialBridge : public rclcpp::Node{
         
         rx_msg = serial_com_link.readSerialPort();
 
-        for(int i = 0; i < 30; i++){
+        for(int i = 0; i < MSG_SIZE; i++){
             
             switch (sm_state){
 
