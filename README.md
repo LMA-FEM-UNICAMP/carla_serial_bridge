@@ -1,6 +1,6 @@
 # carla_serial_bridge
 
-A bridge serial-ROS for communicate microAutoware to CARLA through UART.e
+A bridge serial-ROS for communicate microAutoware to CARLA through UART.
 
 ---
 
